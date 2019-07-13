@@ -4,6 +4,3 @@ version: 0.0.1
 author: JCGrant
 description: A set of plugins used on the JCCraft server
 commands:
-  mycommand:
-    description: An example command
-    usage: /mycommand
