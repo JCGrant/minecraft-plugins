@@ -1,19 +1,27 @@
 package com.jcgrant.jccraft;
 
+import java.util.HashMap;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class JCCraft extends JavaPlugin {
 
   private ChatLimiter chatLimiter;
+  private HashMap<String, CommandHandler> commands;
 
   @Override
   public void onEnable() {
     getServer().getLogger().info("JCCraft Suite is enabled.");
+    commands = new HashMap<>();
+
     chatLimiter = new ChatLimiter(this);
-    getServer().getPluginManager().registerEvents(chatLimiter, this);
+    registerEvents(chatLimiter);
+    registerCommand("chat", chatLimiter);
+
     getConfig().options().copyDefaults(true);
     saveConfig();
   }
@@ -30,10 +38,18 @@ public class JCCraft extends JavaPlugin {
       return false;
     }
     String commandName = command.getName().toLowerCase();
-    switch (commandName) {
-    case "chat":
-      return chatLimiter.setChatMode((Player) sender, args);
+    CommandHandler handler = commands.get(commandName);
+    if (handler == null) {
+      return false;
     }
-    return false;
+    return handler.handleCommand((Player) sender, args);
+  }
+
+  private void registerCommand(String name, CommandHandler command) {
+    commands.put(name, command);
+  }
+
+  private void registerEvents(Listener listener) {
+    getServer().getPluginManager().registerEvents(listener, this);
   }
 }

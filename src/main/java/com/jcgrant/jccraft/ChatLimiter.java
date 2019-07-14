@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class ChatLimiter implements Listener {
+public class ChatLimiter implements Listener, CommandHandler {
 
   private final int MAX_CHAT_DISTANCE = 100;
   private final String CONFIG_KEY = "chat-modes";
@@ -39,7 +39,8 @@ public class ChatLimiter implements Listener {
     });
   }
 
-  public boolean setChatMode(Player player, String[] args) {
+  @Override
+  public boolean handleCommand(Player player, String[] args) {
     if (args.length != 1) {
       player.sendMessage(ChatColor.RED + "usage: /chat <global/local>");
       return true;
