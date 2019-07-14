@@ -4,3 +4,6 @@ version: 0.0.1
 author: JCGrant
 description: A set of plugins used on the JCCraft server
 commands:
+  chat:
+    description: Set your chat distance to local or global
+    usage: /chat <global/local>
