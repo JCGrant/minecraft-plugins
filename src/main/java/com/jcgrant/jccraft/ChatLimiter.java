@@ -11,8 +11,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ChatLimiter implements Listener, CommandHandler {
 
-  private final int MAX_CHAT_DISTANCE = 100;
-  private final String CONFIG_KEY = "chat-modes";
+  private final String CONFIG_KEY_CHAT_DISTANCE = "chat-distance";
+  private final int DEFAULT_MAX_CHAT_DISTANCE = 100;
+
+  private final String CONFIG_KEY_CHAT_MODES = "chat-modes";
   private final String GLOBAL = "global";
   private final String LOCAL = "local";
 
@@ -20,7 +22,8 @@ public class ChatLimiter implements Listener, CommandHandler {
 
   public ChatLimiter(JavaPlugin plugin) {
     this.plugin = plugin;
-    plugin.getConfig().addDefault(CONFIG_KEY, new HashMap<String, String>());
+    plugin.getConfig().addDefault(CONFIG_KEY_CHAT_MODES, new HashMap<String, String>());
+    plugin.getConfig().addDefault(CONFIG_KEY_CHAT_DISTANCE, DEFAULT_MAX_CHAT_DISTANCE);
   }
 
   @EventHandler
@@ -63,7 +66,7 @@ public class ChatLimiter implements Listener, CommandHandler {
   private boolean canHearMessage(Player receiver, Player sender)  {
     return isGlobal(sender) ||
         sender.getWorld() == receiver.getWorld() &&
-        sender.getLocation().distance(receiver.getLocation()) <= MAX_CHAT_DISTANCE;
+        sender.getLocation().distance(receiver.getLocation()) <= getChatDistance();
   }
 
   private boolean isGlobal(Player sender) {
@@ -71,11 +74,15 @@ public class ChatLimiter implements Listener, CommandHandler {
   }
 
   private String getChatMode(Player p) {
-    return plugin.getConfig().getString(CONFIG_KEY + "." + p.getName(), GLOBAL);
+    return plugin.getConfig().getString(CONFIG_KEY_CHAT_MODES + "." + p.getName(), GLOBAL);
   }
 
   private void setChatMode(Player p, String mode) {
-    plugin.getConfig().set(CONFIG_KEY + "." + p.getName(), mode);
+    plugin.getConfig().set(CONFIG_KEY_CHAT_MODES + "." + p.getName(), mode);
     plugin.saveConfig();
+  }
+
+  private int getChatDistance() {
+    return plugin.getConfig().getInt(CONFIG_KEY_CHAT_DISTANCE);
   }
 }
