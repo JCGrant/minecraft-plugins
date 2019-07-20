@@ -70,7 +70,7 @@ public class ChatLimiter implements Listener, CommandHandler {
   }
 
   private boolean isGlobal(Player sender) {
-    return getChatMode(sender) == GLOBAL;
+    return getChatMode(sender).equals(GLOBAL);
   }
 
   private String getChatMode(Player p) {
