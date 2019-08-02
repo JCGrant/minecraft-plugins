@@ -10,17 +10,18 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class JCCraft extends JavaPlugin {
 
-  private ChatLimiter chatLimiter;
-  private HashMap<String, CommandHandler> commands;
+  private HashMap<String, CommandHandler> commands = new HashMap<>();
 
   @Override
   public void onEnable() {
     getServer().getLogger().info("JCCraft Suite is enabled.");
-    commands = new HashMap<>();
 
-    chatLimiter = new ChatLimiter(this);
+    ChatLimiter chatLimiter = new ChatLimiter(this);
     registerEvents(chatLimiter);
     registerCommand("chat", chatLimiter);
+
+    Rituals rituals = new Rituals();
+    registerEvents(rituals);
 
     getConfig().options().copyDefaults(true);
     saveConfig();
