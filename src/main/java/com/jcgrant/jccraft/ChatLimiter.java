@@ -45,7 +45,7 @@ public class ChatLimiter implements Listener, CommandHandler {
   @Override
   public boolean handleCommand(Player player, String[] args) {
     if (args.length != 1) {
-      player.sendMessage(ChatColor.RED + "usage: /chat <global/local>");
+      player.sendMessage(ChatColor.RED + "Usage: /chat <global/local>");
       return true;
     }
     String arg = args[0].toLowerCase();
@@ -58,7 +58,7 @@ public class ChatLimiter implements Listener, CommandHandler {
       player.sendMessage(ChatColor.AQUA + "Set chat mode to Local");
       return true;
     } else {
-      player.sendMessage(ChatColor.RED + "usage: /chat <global/local>");
+      player.sendMessage(ChatColor.RED + "Usage: /chat <global/local>");
       return true;
     }
   }
