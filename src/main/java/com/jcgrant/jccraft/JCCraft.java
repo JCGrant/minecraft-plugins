@@ -23,6 +23,10 @@ public class JCCraft extends JavaPlugin {
     Rituals rituals = new Rituals();
     registerEvents(rituals);
 
+    Discord discord = new Discord(this);
+    registerCommand("discord", discord);
+    registerEvents(discord);
+
     getConfig().options().copyDefaults(true);
     saveConfig();
   }

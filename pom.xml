@@ -10,8 +10,13 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
-           <id>bungeecord-repo</id>
-           <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>bungeecord-repo</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter-bintray</name>
+            <url>http://jcenter.bintray.com</url>
         </repository>
     </repositories>
     <build>
@@ -25,14 +30,32 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
         <dependency>
-               <groupId>org.spigotmc</groupId>
-               <artifactId>spigot-api</artifactId>
-               <version>1.14.3-R0.1-SNAPSHOT</version>
-               <scope>provided</scope>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.14.3-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>3.8.3_464</version>
         </dependency>
     </dependencies>
 </project>

@@ -7,3 +7,6 @@ commands:
   chat:
     description: Set your chat distance to local or global
     usage: /chat <global/local>
+  discord:
+    description: Commands to talk with JC Craft Discord server
+    usage: /discord
