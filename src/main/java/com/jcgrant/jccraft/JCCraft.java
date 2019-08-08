@@ -27,6 +27,9 @@ public class JCCraft extends JavaPlugin {
     registerCommand("discord", discord);
     registerEvents(discord);
 
+    Phantoms phantoms = new Phantoms();
+    registerEvents(phantoms);
+
     getConfig().options().copyDefaults(true);
     saveConfig();
   }
